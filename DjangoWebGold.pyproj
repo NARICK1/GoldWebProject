@@ -37,10 +37,15 @@
     <Compile Include="DjangoWebGold\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="main\static\main\image\black_hole.webp" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DjangoWebGold\" />
+    <Folder Include="main\" />
+    <Folder Include="main\static\" />
+    <Folder Include="main\static\main\" />
+    <Folder Include="main\static\main\image\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

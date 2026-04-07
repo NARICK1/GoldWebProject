@@ -1,4 +1,4 @@
-
+from pathlib import Path
 import os
 import posixpath
 
@@ -12,6 +12,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Add your apps here to enable them
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,3 +85,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+
+BASE_DIR = Path(__file__).resolve().parent.parent
