@@ -12,6 +12,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Add your apps here to enable them
+    'users',
+    'reviews',
     'main',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,15 +77,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-
+# пароль для администратора: adminuustkarpov1234
 STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LOGIN_REDIRECT_URL = '/' 
+LOGOUT_REDIRECT_URL = '/'  

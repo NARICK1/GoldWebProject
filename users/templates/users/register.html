@@ -1,0 +1,157 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<style>
+    .auth-form {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(20,20,50,0.7);
+        border-radius: 20px;
+        border: 1px solid rgba(255,215,0,0.3);
+    }
+
+        .auth-form h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+            .auth-form input:focus {
+                outline: none;
+                border-color: #ffd700;
+                box-shadow: 0 0 10px rgba(255,215,0,0.3);
+            }
+
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+            .auth-form button:hover {
+                transform: scale(1.02);
+                box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            }
+
+    .auth-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .auth-link a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+            .auth-link a:hover {
+                text-decoration: underline;
+            }
+
+    /* ПОДПИСИ */
+    .auth-form label {
+        color: #ddd !important;
+        font-size: 14px;
+        margin-top: 10px;
+        display: block;
+    }
+
+    /* ПОДСКАЗКИ */
+    .helptext {
+        color: #aaa !important;
+        font-size: 12px;
+        margin-top: -5px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    /* ОШИБКИ */
+    .errorlist, .error {
+        color: #ff8888 !important;
+        font-size: 12px;
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 5px;
+    }
+
+    /* СООБЩЕНИЯ */
+    .messages {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+        .messages li {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+    .success {
+        background: rgba(0,255,0,0.2);
+        border: 1px solid green;
+        color: lightgreen;
+    }
+
+    .error {
+        background: rgba(255,0,0,0.2);
+        border: 1px solid red;
+        color: #ff8888;
+    }
+</style>
+
+<div class="auth-form">
+    <h2>✨ РЕГИСТРАЦИЯ ✨</h2>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Имя пользователя</label>
+        {{ form.username }}
+        <div class="helptext">Можно использовать русские буквы, английские буквы, цифры и пробел</div>
+        {{ form.username.errors }}
+
+        <label>Пароль</label>
+        {{ form.password1 }}
+        <div class="helptext">Пароль должен содержать не менее 8 символов и не должен быть слишком простым</div>
+        {{ form.password1.errors }}
+
+        <label>Подтверждение пароля</label>
+        {{ form.password2 }}
+        <div class="helptext">Введите тот же пароль, что и выше</div>
+        {{ form.password2.errors }}
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <div class="auth-link">
+        <a href="{% url 'login' %}">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+{% endblock %}

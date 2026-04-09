@@ -1,0 +1,108 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<style>
+    .contact-section {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .contact-title {
+        color: #ffd700;
+        font-size: 48px;
+        margin-bottom: 30px;
+    }
+
+    .contact-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin: 40px 0;
+    }
+
+    .contact-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,215,0,0.3);
+        border-radius: 20px;
+        padding: 30px;
+        width: 250px;
+        transition: all 0.3s;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+
+    .contact-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .contact-card h3 {
+        color: #ffd700;
+        margin-bottom: 15px;
+    }
+
+    .contact-card p {
+        color: #ddd;
+        margin: 5px 0;
+    }
+
+    .map {
+        margin: 40px auto;
+        max-width: 800px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .work-hours {
+        margin-top: 30px;
+        color: #888;
+    }
+</style>
+
+<div class="contact-section">
+    <h1 class="contact-title">🌟 Свяжитесь с нами 🌟</h1>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <div class="contact-icon">📞</div>
+            <h3>Телефон</h3>
+            <p>+7 (937) 476-88-11</p>
+            <p>+7 (995) 947-07-67</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <h3>Email</h3>
+            <p>info@cosmoring.ru</p>
+            <p>shop@cosmoring.ru</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <h3>Адрес</h3>
+            <p>г. Уфа</p>
+            <p>ул. Карла Маркса, д 12</p>
+        </div>
+    </div>
+
+    <div class="map">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1f2c3b4a5d6e7f8g9h0i&source=constructor"
+                width="100%"
+                height="300"
+                frameborder="0"
+                style="border-radius: 20px;">
+        </iframe>
+    </div>
+
+    <div class="work-hours">
+        <p>🕐 Режим работы: Ежедневно с 10:00 до 21:00</p>
+        <p>✨ Бесплатная консультация по телефону ✨</p>
+    </div>
+</div>
+{% endblock %}

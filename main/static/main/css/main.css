@@ -1,5 +1,5 @@
 body {
-    background-color: d8c2ff;
+    background-color: #050510;
 }
 aside {
     float: left;
@@ -22,4 +22,38 @@ aside {
         position: relative;
         top: -45px;
         color: #6e4bfe
+    }
+    aside h3{
+        margin-top: 50px;
+        font-size: 25px;
+    }
+    aside ul{list-style: none}
+    aside ul li {
+        color: #6e4bfe;
+        display: block;
+        margin-top: 20px;
+        transition: transform .6s ease;
+    }
+    aside ul li:hover, aside ul a:hover{
+        color: #ff6a00;
+        text-decoration: none;
+        transform: scale(1.08);
+    }
+    main .feature {
+        float: left;
+        color: #fff;
+        margin-top: 100px;
+        text-align: center;
+        wight: 75%;
+       
+    }
+    main .feature h1{font-size: 50px;
+    }
+    main .feature p {max-width: 400px; margin: 20px auto}
+    .alert-warning {
+        float: left;
+        clear: both;
+        width: 400px;
+        margin: 20px 34%;
+        text-align: left;
     }

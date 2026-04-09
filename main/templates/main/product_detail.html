@@ -1,0 +1,141 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<style>
+    .product-detail {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .product-images {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 400px;
+        background: #1a1a3a;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+        border: 1px solid rgba(255,215,0,0.3);
+        overflow: hidden;
+    }
+
+    .product-detail-info {
+        flex: 1;
+        min-width: 300px;
+    }
+
+        .product-detail-info h1 {
+            color: #ffd700;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+    .product-price-large {
+        font-size: 36px;
+        color: #ffaa44;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    .product-description {
+        color: #ddd;
+        line-height: 1.6;
+        margin: 20px 0;
+    }
+
+    .product-characteristics {
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+        .product-characteristics h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+    .btn-add-to-cart {
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        border: none;
+        color: #000;
+        font-weight: bold;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .btn-add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255,215,0,0.5);
+        }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #ffd700;
+        text-decoration: none;
+    }
+</style>
+
+<div class="product-detail">
+    <div class="product-images">
+        <div class="product-image">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+            {% if product.category == 'ring' %}💍
+            {% elif product.category == 'earrings' %}✨
+            {% elif product.category == 'necklace' %}📿
+            {% else %}🔗{% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+
+        <div class="product-meta">
+            {% if product.material == 'meteorite' %}☄️ Метеорит
+            {% elif product.material == 'gold' %}🟡 Золото
+            {% elif product.material == 'silver' %}⚪ Серебро
+            {% elif product.material == 'rose' %}🌸 Розовое золото
+            {% elif product.material == 'platinum' %}🤍 Платина
+            {% elif product.material == 'black' %}⚫ Чёрное золото
+            {% endif %}
+            {% if product.is_new %} | 🔥 НОВИНКА{% endif %}
+        </div>
+
+        <div class="product-price-large">{{ product.price|floatformat:0 }} ₽</div>
+
+        <div class="product-description">
+            <h3 style="color: #ffd700;">Описание</h3>
+            <p>{{ product.description|default:"Космическая элегантность в каждой детали. Украшение ручной работы из драгоценных металлов." }}</p>
+        </div>
+
+        {% if product.characteristics %}
+        <div class="product-characteristics">
+            <h3>📋 Характеристики</h3>
+            <p>{{ product.characteristics }}</p>
+        </div>
+        {% endif %}
+
+        <button class="btn-add-to-cart" onclick="alert('Корзина скоро появится!')">🛒 Добавить в корзину</button>
+
+        <br>
+        <a href="{% url 'catalog' %}" class="back-link">← Вернуться в каталог</a>
+    </div>
+</div>
+{% endblock %}
