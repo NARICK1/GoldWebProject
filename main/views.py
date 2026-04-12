@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib import messages
 from .models import Product
 from users.forms import CustomUserCreationForm
-from users.models import Profile
+
 def home(request):
-    return render(request, 'main/blackhole.html')
+    theme = request.COOKIES.get('theme', 'dark')
+    if theme == 'light':
+        return render(request, 'main/home_light.html')
+    else:
+        return render(request, 'main/blackhole.html')
 
 def catalog(request):
     products = Product.objects.all().order_by('-created_at')
@@ -47,9 +50,6 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            
-            username = form.cleaned_data.get('username')
-            Profile.objects.create(user=user, full_name=username)
             login(request, user)
             messages.success(request, 'Регистрация прошла успешно!')
             return redirect('home')

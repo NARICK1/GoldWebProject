@@ -5,7 +5,7 @@
 {% block content %}
 <style>
     .auth-form {
-        max-width: 400px;
+        max-width: 450px;
         margin: 50px auto;
         padding: 30px;
         background: rgba(20,20,50,0.7);
@@ -67,7 +67,6 @@
                 text-decoration: underline;
             }
 
-    /* ПОДПИСИ */
     .auth-form label {
         color: #ddd !important;
         font-size: 14px;
@@ -75,7 +74,6 @@
         display: block;
     }
 
-    /* ПОДСКАЗКИ */
     .helptext {
         color: #aaa !important;
         font-size: 12px;
@@ -84,8 +82,7 @@
         display: block;
     }
 
-    /* ОШИБКИ */
-    .errorlist, .error {
+    .errorlist {
         color: #ff8888 !important;
         font-size: 12px;
         list-style: none;
@@ -93,18 +90,11 @@
         margin-bottom: 5px;
     }
 
-    /* СООБЩЕНИЯ */
     .messages {
         list-style: none;
         padding: 0;
         margin-bottom: 20px;
     }
-
-        .messages li {
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
 
     .success {
         background: rgba(0,255,0,0.2);
@@ -138,9 +128,14 @@
         <div class="helptext">Можно использовать русские буквы, английские буквы, цифры и пробел</div>
         {{ form.username.errors }}
 
+        <label>Email</label>
+        {{ form.email }}
+        <div class="helptext">Введите действующий email (только латиница)</div>
+        {{ form.email.errors }}
+
         <label>Пароль</label>
         {{ form.password1 }}
-        <div class="helptext">Пароль должен содержать не менее 8 символов и не должен быть слишком простым</div>
+        <div class="helptext">Пароль должен содержать не менее 8 символов</div>
         {{ form.password1.errors }}
 
         <label>Подтверждение пароля</label>

@@ -67,17 +67,11 @@
                 text-decoration: underline;
             }
 
-    /* СВЕТЛЫЕ ПОДПИСИ */
     .auth-form label {
         color: #ddd !important;
         font-size: 14px;
         margin-top: 10px;
         display: block;
-    }
-
-    .helptext {
-        color: #aaa !important;
-        font-size: 12px;
     }
 
     .errorlist {
@@ -92,15 +86,10 @@
     <h2>🔐 ВХОД В АККАУНТ</h2>
     <form method="post">
         {% csrf_token %}
-
-        {% for field in form %}
-        <label>{{ field.label }}</label>
-        {{ field }}
-        {% for error in field.errors %}
-        <div class="errorlist">{{ error }}</div>
-        {% endfor %}
-        {% endfor %}
-
+        <label>Email</label>
+        {{ form.username }}
+        <label>Пароль</label>
+        {{ form.password }}
         <button type="submit">Войти</button>
     </form>
     <div class="auth-link">

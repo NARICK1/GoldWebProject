@@ -1,0 +1,553 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}CosmoRing{% endblock %}
+
+{% block content %}
+<style>
+    .summer-scene {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(#87CEEB, #E0F7FF);
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    /* Солнце */
+    .sun {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 140px;
+        z-index: 5;
+    }
+
+    .sun-core {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #FFD700, #FFA500);
+        border-radius: 50%;
+        box-shadow: 0 0 60px #FFD700;
+        animation: pulse 3s infinite ease-in-out;
+        z-index: 2;
+    }
+
+    .ray {
+        position: absolute;
+        width: 4px;
+        height: 70px;
+        background: linear-gradient(to top, #FFD700, #FFA500, transparent);
+        top: 50%;
+        left: 50%;
+        transform-origin: center top;
+        opacity: 0.8;
+        border-radius: 2px;
+    }
+
+    .ray-0 {
+        transform: translate(-50%, 0) rotate(0deg) translateY(-70px);
+    }
+
+    .ray-15 {
+        transform: translate(-50%, 0) rotate(15deg) translateY(-70px);
+    }
+
+    .ray-30 {
+        transform: translate(-50%, 0) rotate(30deg) translateY(-70px);
+    }
+
+    .ray-45 {
+        transform: translate(-50%, 0) rotate(45deg) translateY(-70px);
+    }
+
+    .ray-60 {
+        transform: translate(-50%, 0) rotate(60deg) translateY(-70px);
+    }
+
+    .ray-75 {
+        transform: translate(-50%, 0) rotate(75deg) translateY(-70px);
+    }
+
+    .ray-90 {
+        transform: translate(-50%, 0) rotate(90deg) translateY(-70px);
+    }
+
+    .ray-105 {
+        transform: translate(-50%, 0) rotate(105deg) translateY(-70px);
+    }
+
+    .ray-120 {
+        transform: translate(-50%, 0) rotate(120deg) translateY(-70px);
+    }
+
+    .ray-135 {
+        transform: translate(-50%, 0) rotate(135deg) translateY(-70px);
+    }
+
+    .ray-150 {
+        transform: translate(-50%, 0) rotate(150deg) translateY(-70px);
+    }
+
+    .ray-165 {
+        transform: translate(-50%, 0) rotate(165deg) translateY(-70px);
+    }
+
+    .ray-180 {
+        transform: translate(-50%, 0) rotate(180deg) translateY(-70px);
+    }
+
+    .ray-195 {
+        transform: translate(-50%, 0) rotate(195deg) translateY(-70px);
+    }
+
+    .ray-210 {
+        transform: translate(-50%, 0) rotate(210deg) translateY(-70px);
+    }
+
+    .ray-225 {
+        transform: translate(-50%, 0) rotate(225deg) translateY(-70px);
+    }
+
+    .ray-240 {
+        transform: translate(-50%, 0) rotate(240deg) translateY(-70px);
+    }
+
+    .ray-255 {
+        transform: translate(-50%, 0) rotate(255deg) translateY(-70px);
+    }
+
+    .ray-270 {
+        transform: translate(-50%, 0) rotate(270deg) translateY(-70px);
+    }
+
+    .ray-285 {
+        transform: translate(-50%, 0) rotate(285deg) translateY(-70px);
+    }
+
+    .ray-300 {
+        transform: translate(-50%, 0) rotate(300deg) translateY(-70px);
+    }
+
+    .ray-315 {
+        transform: translate(-50%, 0) rotate(315deg) translateY(-70px);
+    }
+
+    .ray-330 {
+        transform: translate(-50%, 0) rotate(330deg) translateY(-70px);
+    }
+
+    .ray-345 {
+        transform: translate(-50%, 0) rotate(345deg) translateY(-70px);
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.08);
+        }
+    }
+
+    /* Море */
+    .sea {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 35%;
+        background: linear-gradient(#1E90FF, #0066cc);
+        overflow: hidden;
+    }
+
+    .wave {
+        position: absolute;
+        width: 200%;
+        height: 100px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 50%;
+        animation: waveMove 6s linear infinite;
+    }
+
+        .wave:nth-child(1) {
+            top: 20px;
+        }
+
+        .wave:nth-child(2) {
+            top: 60px;
+            animation-duration: 8s;
+        }
+
+        .wave:nth-child(3) {
+            top: 100px;
+            animation-duration: 10s;
+            opacity: 0.5;
+        }
+
+    @keyframes waveMove {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .sand {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 12%;
+        background: linear-gradient(#F4D03F, #E8C84A);
+        border-radius: 50% 50% 0 0;
+    }
+
+    .flowers-container {
+        position: absolute;
+        bottom: 12%;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 20px;
+        flex-wrap: wrap;
+    }
+
+    .flower {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        margin: 0 10px;
+        animation: sway 3s infinite ease-in-out;
+    }
+
+    @keyframes sway {
+        0%, 100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(5deg);
+        }
+    }
+
+    .petal {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #FF69B4;
+        border-radius: 50%;
+    }
+
+        .petal:nth-child(1) {
+            top: 0;
+            left: 10px;
+        }
+
+        .petal:nth-child(2) {
+            top: 10px;
+            left: 0;
+        }
+
+        .petal:nth-child(3) {
+            top: 10px;
+            left: 20px;
+        }
+
+        .petal:nth-child(4) {
+            top: 20px;
+            left: 10px;
+        }
+
+    .flower-center {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: #FFD700;
+        border-radius: 50%;
+        top: 13px;
+        left: 13px;
+    }
+
+    .flower-stem {
+        position: absolute;
+        width: 3px;
+        height: 30px;
+        background: #2E8B57;
+        bottom: -25px;
+        left: 18px;
+    }
+
+    .cloud {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.85;
+        animation: floatCloud 20s linear infinite;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    @keyframes floatCloud {
+        from {
+            transform: translateX(-150px);
+        }
+
+        to {
+            transform: translateX(calc(100vw + 150px));
+        }
+    }
+
+    .cloud1 {
+        width: 80px;
+        height: 50px;
+        top: 120px;
+        left: 5%;
+        animation-duration: 28s;
+    }
+
+    .cloud2 {
+        width: 120px;
+        height: 70px;
+        top: 180px;
+        left: 20%;
+        animation-duration: 35s;
+    }
+
+    .cloud3 {
+        width: 60px;
+        height: 40px;
+        top: 80px;
+        left: 50%;
+        animation-duration: 22s;
+    }
+
+    .cloud4 {
+        width: 100px;
+        height: 60px;
+        top: 220px;
+        left: 70%;
+        animation-duration: 40s;
+    }
+
+    .cloud5 {
+        width: 70px;
+        height: 45px;
+        top: 30px;
+        left: 85%;
+        animation-duration: 30s;
+    }
+
+    .cloud6 {
+        width: 90px;
+        height: 55px;
+        top: 250px;
+        left: 40%;
+        animation-duration: 32s;
+        animation-delay: 5s;
+    }
+
+    .cloud7 {
+        width: 50px;
+        height: 35px;
+        top: 160px;
+        left: 90%;
+        animation-duration: 25s;
+        animation-delay: 2s;
+    }
+
+    .cloud::before,
+    .cloud::after {
+        content: '';
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+    }
+
+    .cloud::before {
+        width: 50px;
+        height: 50px;
+        top: -20px;
+        left: 15px;
+    }
+
+    .cloud::after {
+        width: 40px;
+        height: 40px;
+        top: -10px;
+        left: 45px;
+    }
+
+    .bird {
+        position: absolute;
+        font-size: 20px;
+        color: #333;
+        animation: flyBird 15s linear infinite;
+    }
+
+    @keyframes flyBird {
+        from {
+            transform: translateX(-100px) translateY(0);
+        }
+
+        to {
+            transform: translateX(100vw) translateY(-50px);
+        }
+    }
+
+    .bird1 {
+        top: 120px;
+        animation-duration: 18s;
+    }
+
+    .bird2 {
+        top: 180px;
+        animation-duration: 22s;
+        animation-delay: 5s;
+    }
+
+    .bird3 {
+        top: 80px;
+        animation-duration: 20s;
+        animation-delay: 3s;
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #FFD700, #FFA500);
+        border-radius: 50%;
+        opacity: 0;
+        animation: sparkleTwinkle 4s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    @keyframes sparkleTwinkle {
+        0%, 100% {
+            opacity: 0;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.9;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px #FFD700;
+        }
+    }
+
+    .hero-text {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 50px;
+        margin-left: 260px;
+        pointer-events: none;
+    }
+
+        .hero-text h1 {
+            color: #4a3520;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            color: #6b4c3a;
+            font-size: 20px;
+        }
+</style>
+
+<div class="summer-scene" id="summerScene">
+    <div class="sun">
+        <div class="sun-core"></div>
+        <div class="ray ray-0"></div>
+        <div class="ray ray-15"></div>
+        <div class="ray ray-30"></div>
+        <div class="ray ray-45"></div>
+        <div class="ray ray-60"></div>
+        <div class="ray ray-75"></div>
+        <div class="ray ray-90"></div>
+        <div class="ray ray-105"></div>
+        <div class="ray ray-120"></div>
+        <div class="ray ray-135"></div>
+        <div class="ray ray-150"></div>
+        <div class="ray ray-165"></div>
+        <div class="ray ray-180"></div>
+        <div class="ray ray-195"></div>
+        <div class="ray ray-210"></div>
+        <div class="ray ray-225"></div>
+        <div class="ray ray-240"></div>
+        <div class="ray ray-255"></div>
+        <div class="ray ray-270"></div>
+        <div class="ray ray-285"></div>
+        <div class="ray ray-300"></div>
+        <div class="ray ray-315"></div>
+        <div class="ray ray-330"></div>
+        <div class="ray ray-345"></div>
+    </div>
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+    <div class="cloud cloud5"></div>
+    <div class="cloud cloud6"></div>
+    <div class="cloud cloud7"></div>
+
+    <div class="bird bird1">🐦</div>
+    <div class="bird bird2">🕊️</div>
+    <div class="bird bird3">🐦</div>
+
+    <div class="sea">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div class="sand"></div>
+
+    <div class="flowers-container">
+        <div class="flower"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="flower-center"></div><div class="flower-stem"></div></div>
+        <div class="flower"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="flower-center"></div><div class="flower-stem"></div></div>
+        <div class="flower"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="flower-center"></div><div class="flower-stem"></div></div>
+        <div class="flower"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="flower-center"></div><div class="flower-stem"></div></div>
+        <div class="flower"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="flower-center"></div><div class="flower-stem"></div></div>
+    </div>
+</div>
+
+<div class="hero-text">
+    <h1>☀️ CosmoRing</h1>
+    <p>Летняя коллекция уже в каталоге!</p>
+</div>
+
+<script>
+    function createSparkles() {
+        const container = document.getElementById('summerScene');
+        if (!container) return;
+
+        const sparkleCount = 80;
+
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 70 + '%';
+            sparkle.style.animationDelay = Math.random() * 5 + 's';
+            sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+
+            const size = Math.random() * 4 + 2;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+
+            container.appendChild(sparkle);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', createSparkles);
+</script>
+{% endblock %}

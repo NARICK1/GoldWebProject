@@ -1,34 +1,259 @@
 ﻿{% extends 'main/layout.html' %}
 
-{% block title %}{{title}}{%endblock%}
+{% block title %}Корзина{% endblock %}
 
 {% block content %}
+<style>
+    .cart-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-<div class="feature">
+    .cart-title {
+        color: #ffd700;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
 
-    <h1>{{ title }}</h1>
+    .cart-empty {
+        text-align: center;
+        padding: 50px;
+        background: rgba(20,20,50,0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
 
-    <p>Что-то интересное</p>
+        .cart-empty p {
+            color: #ccc;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
 
-    <button class="btn btn-warning">Нажми на меня</button>
+    .btn-continue {
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        border: none;
+        color: #000;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
 
-    {% if new_object%}
+        .btn-continue:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
 
-    {% for obj in new_object%}
+    .cart-table {
+        width: 100%;
+        background: rgba(20,20,50,0.7);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        border-collapse: collapse;
+    }
 
-    <div class="alert alert-warning">
-        <h3>{{ obj.comment}}</h3>
-        <p>{{ obj.full_text}}</p>
-        <p>{{ obj.date }}</p>
+        .cart-table th {
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .cart-table td {
+            padding: 15px;
+            color: #ddd;
+            border-bottom: 1px solid rgba(255,215,0,0.1);
+        }
+
+        .cart-table img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+    .cart-product-name {
+        color: #ffd700;
+        font-weight: bold;
+    }
+
+    .cart-price {
+        color: #ffaa44;
+        font-weight: bold;
+    }
+
+    .cart-quantity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .cart-quantity input {
+            width: 60px;
+            padding: 5px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+        }
+
+    .btn-remove {
+        background: rgba(255,0,0,0.3);
+        border: 1px solid rgba(255,0,0,0.5);
+        color: #ff8888;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .btn-remove:hover {
+            background: rgba(255,0,0,0.5);
+            color: white;
+        }
+
+    .cart-total {
+        margin-top: 30px;
+        text-align: right;
+        background: rgba(20,20,50,0.7);
+        padding: 20px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+        .cart-total p {
+            font-size: 24px;
+            color: #ffd700;
+        }
+
+        .cart-total span {
+            color: #ffaa44;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+    .cart-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-checkout {
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        border: none;
+        color: #000;
+        font-weight: bold;
+        padding: 15px 40px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+        .btn-checkout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+
+    body.light-theme .cart-empty {
+        background: rgba(255,255,255,0.7);
+    }
+
+        body.light-theme .cart-empty p {
+            color: #4a3a6e;
+        }
+
+    body.light-theme .cart-table {
+        background: rgba(255,255,255,0.8);
+    }
+
+        body.light-theme .cart-table td {
+            color: #4a3a6e;
+            border-bottom-color: rgba(0,0,0,0.1);
+        }
+
+    body.light-theme .cart-product-name {
+        color: #2d1b4e;
+    }
+
+    body.light-theme .cart-total {
+        background: rgba(255,255,255,0.8);
+    }
+</style>
+
+<div class="cart-container">
+    <h1 class="cart-title">🛒 КОРЗИНА</h1>
+
+    {% if cart_items %}
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% else %}
+                    <div style="width: 60px; height: 60px; background: #1a1a3a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 30px;">
+                        {% if item.product.category == 'ring' %}💍
+                        {% elif item.product.category == 'earrings' %}✨
+                        {% elif item.product.category == 'necklace' %}📿
+                        {% else %}🔗{% endif %}
+                    </div>
+                    {% endif %}
+                </td>
+                <td class="cart-product-name">{{ item.product.name }}</td>
+                <td class="cart-price">{{ item.product.price|floatformat:0 }} ₽</td>
+                <td>
+                    <div class="cart-quantity">
+                        <form method="post" action="{% url 'update_cart' item.id %}" style="display: flex; gap: 5px;">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99">
+                            <button type="submit" style="background: rgba(255,215,0,0.3); border: none; border-radius: 8px; color: #ffd700; cursor: pointer; padding: 5px 10px;">✅</button>
+                        </form>
+                    </div>
+                </td>
+                <td class="cart-price">{{ item.total|floatformat:0 }} ₽</td>
+                <td>
+                    <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-remove">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="cart-total">
+        <p>ИТОГО: <span>{{ total_price|floatformat:0 }} ₽</span></p>
     </div>
 
-    {%endfor%}
+    <div class="cart-buttons">
+        <a href="{% url 'catalog' %}" class="btn-continue">← Продолжить покупки</a>
+        <button class="btn-checkout" onclick="alert('Оформление заказа скоро появится!')">Оформить заказ →</button>
+    </div>
 
-    {%else%}
-
-    <p>Нет записей</p>
-    {%endif%}
-
+    {% else %}
+    <div class="cart-empty">
+        <p>🛍️ Ваша корзина пуста</p>
+        <p>Добавьте товары из каталога</p>
+        <a href="{% url 'catalog' %}" class="btn-continue">Перейти в каталог</a>
+    </div>
+    {% endif %}
 </div>
-
-{%endblock%}
+{% endblock %}

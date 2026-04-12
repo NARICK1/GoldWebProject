@@ -4,7 +4,6 @@
 
 {% block content %}
 <style>
-    /* ПЕРЕОПРЕДЕЛЯЕМ ФОН ТОЛЬКО ДЛЯ ЭТОЙ СТРАНИЦЫ */
     body {
         background: radial-gradient(ellipse at center, #0a0a2a 0%, #030310 100%) !important;
         position: relative;
@@ -236,20 +235,29 @@
         font-size: 12px;
     }
 
-    /* БЕГУЩАЯ СТРОКА */
+    /* БЕГУЩАЯ СТРОКА С ОТЗЫВАМИ (ДВЕ ЛИНИИ) */
     .reviews-marquee {
         overflow: hidden;
         position: relative;
         width: 100%;
-        padding: 30px 0;
-        margin: 20px 0;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
     }
 
     .reviews-track {
         display: flex;
         gap: 30px;
-        animation: scrollLeft 35s linear infinite;
         width: fit-content;
+    }
+
+    .track-top {
+        animation: scrollLeft 240s linear infinite;
+    }
+
+    .track-bottom {
+        animation: scrollRight 240s linear infinite;
     }
 
     .reviews-marquee:hover .reviews-track {
@@ -263,6 +271,16 @@
 
         100% {
             transform: translateX(-50%);
+        }
+    }
+
+    @keyframes scrollRight {
+        0% {
+            transform: translateX(-50%);
+        }
+
+        100% {
+            transform: translateX(0);
         }
     }
 
@@ -281,7 +299,6 @@
         box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
-        /* ГРАДИЕНТНАЯ ОБВОДКА ПРИ НАВЕДЕНИИ */
         .marquee-card::before {
             content: '';
             position: absolute;
@@ -374,7 +391,6 @@
         border-top: 1px dashed rgba(255,215,0,0.2);
     }
 
-    /* ПУЛЬСИРУЮЩИЙ БЕЙДЖ НОВИНКИ */
     .marquee-card .new-badge {
         position: absolute;
         top: -10px;
@@ -650,8 +666,10 @@
         </div>
     </div>
 
+    <!-- БЕГУЩАЯ СТРОКА С ОТЗЫВАМИ (ДВЕ ЛИНИИ) -->
     <div class="reviews-marquee">
-        <div class="reviews-track">
+        <!-- Верхняя строка (влево) -->
+        <div class="reviews-track track-top">
             {% for review in reviews %}
             <div class="marquee-card">
                 {% if review.material == 'meteorite' %}
@@ -697,6 +715,97 @@
             {% endfor %}
 
             {% for review in reviews %}
+            <div class="marquee-card">
+                {% if review.material == 'meteorite' %}
+                <div class="new-badge">🔥 НОВИНКА</div>
+                {% endif %}
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="topic">{{ review.topic }}</div>
+                    <div class="color-dot" style="background:
+                        {% if review.material == 'gold' %}gold
+                        {% elif review.material == 'silver' %}silver
+                        {% elif review.material == 'rose' %}pink
+                        {% elif review.material == 'platinum' %}#e5e5e5
+                        {% elif review.material == 'black' %}black
+                        {% elif review.material == 'meteorite' %}#2d1b4e
+                        {% endif %};"></div>
+                </div>
+
+                <div class="review-text">{{ review.text|truncatechars:120 }}</div>
+
+                <div class="stars">
+                    {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="author">{{ review.author_name }}</div>
+                <div class="product-info">
+                    {{ review.get_product_type_display }}
+                    {% if review.product_name %} "{{ review.product_name }}"{% endif %} |
+                    Материал:
+                    {% if review.material == 'meteorite' %}☄️ Метеорит
+                    {% elif review.material == 'gold' %}🟡 Золото
+                    {% elif review.material == 'silver' %}⚪ Серебро
+                    {% elif review.material == 'rose' %}🌸 Розовое золото
+                    {% elif review.material == 'platinum' %}🤍 Платина
+                    {% elif review.material == 'black' %}⚫ Чёрное золото
+                    {% endif %}
+                    <br>
+                    📅 {{ review.created_at|date:"d.m.Y" }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Нижняя строка (вправо) -->
+        <div class="reviews-track track-bottom">
+            {% for review in reviews reversed %}
+            <div class="marquee-card">
+                {% if review.material == 'meteorite' %}
+                <div class="new-badge">🔥 НОВИНКА</div>
+                {% endif %}
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="topic">{{ review.topic }}</div>
+                    <div class="color-dot" style="background:
+                        {% if review.material == 'gold' %}gold
+                        {% elif review.material == 'silver' %}silver
+                        {% elif review.material == 'rose' %}pink
+                        {% elif review.material == 'platinum' %}#e5e5e5
+                        {% elif review.material == 'black' %}black
+                        {% elif review.material == 'meteorite' %}#2d1b4e
+                        {% endif %};"></div>
+                </div>
+
+                <div class="review-text">{{ review.text|truncatechars:120 }}</div>
+
+                <div class="stars">
+                    {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="author">{{ review.author_name }}</div>
+                <div class="product-info">
+                    {{ review.get_product_type_display }}
+                    {% if review.product_name %} "{{ review.product_name }}"{% endif %} |
+                    Материал:
+                    {% if review.material == 'meteorite' %}☄️ Метеорит
+                    {% elif review.material == 'gold' %}🟡 Золото
+                    {% elif review.material == 'silver' %}⚪ Серебро
+                    {% elif review.material == 'rose' %}🌸 Розовое золото
+                    {% elif review.material == 'platinum' %}🤍 Платина
+                    {% elif review.material == 'black' %}⚫ Чёрное золото
+                    {% endif %}
+                    <br>
+                    📅 {{ review.created_at|date:"d.m.Y" }}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for review in reviews reversed %}
             <div class="marquee-card">
                 {% if review.material == 'meteorite' %}
                 <div class="new-badge">🔥 НОВИНКА</div>
@@ -808,7 +917,6 @@
         const container = document.getElementById('starField');
         if (!container) return;
 
-        // Маленькие звёзды (250 штук)
         for (let i = 0; i < 250; i++) {
             const star = document.createElement('div');
             star.classList.add('star-small');
@@ -821,7 +929,6 @@
             container.appendChild(star);
         }
 
-        // Большие звёзды (40 штук)
         for (let i = 0; i < 40; i++) {
             const star = document.createElement('div');
             star.classList.add('star-big');
@@ -836,7 +943,6 @@
     }
     createStars();
 
-    // ВАЛИДАЦИЯ EMAIL
     function validateEmail(email) {
         if (!email) return true;
         if (/[а-яА-ЯёЁ]/.test(email)) return false;
@@ -883,7 +989,6 @@
         stars.forEach((s, i) => s.textContent = i < 5 ? '⭐' : '☆');
     }
 
-    // ПРЕДПРОСМОТР МАТЕРИАЛА
     const materialSelect = document.getElementById('material');
     if (materialSelect) {
         materialSelect.addEventListener('change', function () {
@@ -906,7 +1011,6 @@
         materialSelect.dispatchEvent(new Event('change'));
     }
 
-    // ЗВЁЗДЫ ДЛЯ ОЦЕНКИ
     const stars = document.querySelectorAll('#ratingPreview .rating-star');
     const ratingInput = document.getElementById('ratingValue');
 

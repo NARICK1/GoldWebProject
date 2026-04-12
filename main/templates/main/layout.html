@@ -20,6 +20,13 @@
             text-decoration: none;
         }
 
+        /* ===== ТЁМНАЯ ТЕМА ===== */
+        body {
+            background: radial-gradient(ellipse at center, #0a0a2a 0%, #030310 100%);
+            transition: background 0.3s ease, color 0.3s ease;
+            color: #fff;
+        }
+
         /* Сайдбар */
         aside {
             position: fixed;
@@ -33,6 +40,7 @@
             border-right: 1px solid rgba(255, 215, 0, 0.4);
             z-index: 100;
             overflow-y: auto;
+            transition: all 0.3s ease;
         }
 
         /* Логотип */
@@ -43,7 +51,6 @@
             margin-bottom: 50px;
         }
 
-        /* АНИМАЦИЯ ПУЛЬСАЦИЯ + СВЕЧЕНИЕ */
         .animated-logo {
             width: 55px;
             height: 55px;
@@ -52,24 +59,25 @@
             border: 2px solid #ffd700;
             animation: pulseGlow 2s ease-in-out infinite;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
         }
 
         @keyframes pulseGlow {
             0% {
                 transform: scale(1);
-                box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+                box-shadow: 0 0 5px rgba(255,215,0,0.3);
                 border-color: #ffd700;
             }
 
             50% {
                 transform: scale(1.1);
-                box-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 0 0 10px rgba(255, 100, 0, 0.5);
+                box-shadow: 0 0 25px rgba(255,215,0,0.9);
                 border-color: #ffaa00;
             }
 
             100% {
                 transform: scale(1);
-                box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+                box-shadow: 0 0 5px rgba(255,215,0,0.3);
                 border-color: #ffd700;
             }
         }
@@ -80,6 +88,7 @@
             color: #ffd700;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
             animation: textGlow 2s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
 
         @keyframes textGlow {
@@ -104,6 +113,7 @@
             letter-spacing: 2px;
             border-left: 3px solid #ffd700;
             padding-left: 12px;
+            transition: all 0.3s ease;
         }
 
         aside ul {
@@ -137,6 +147,256 @@
             min-height: 100vh;
         }
 
+        /* ===== СВЕТЛАЯ ТЕМА ===== */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f0e8 0%, #fff5f0 100%) !important;
+            color: #2d1b4e !important;
+        }
+
+            body.light-theme aside {
+                background: rgba(255, 255, 255, 0.95) !important;
+                border-right: 1px solid rgba(45, 27, 78, 0.2);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+            }
+
+                body.light-theme aside ul li {
+                    color: #3a2a5a !important;
+                    font-weight: 500;
+                }
+
+                    body.light-theme aside ul li:hover {
+                        color: #e8a87c !important;
+                    }
+
+            body.light-theme .logo-text {
+                color: #2d1b4e !important;
+                text-shadow: none !important;
+                animation: none;
+            }
+
+            body.light-theme .animated-logo {
+                border-color: #2d1b4e;
+                box-shadow: 0 0 15px rgba(45, 27, 78, 0.15);
+                animation: none;
+            }
+
+            body.light-theme aside h3 {
+                color: #2d1b4e !important;
+                border-left-color: #e8a87c;
+            }
+
+            /* Карточки товаров */
+            body.light-theme .product-card {
+                background: #ffffff !important;
+                border: 1px solid #e0d4c8 !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+                body.light-theme .product-card:hover {
+                    border-color: #d48a3c !important;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                }
+
+            body.light-theme .product-name {
+                color: #2d1b4e !important;
+                font-weight: bold;
+            }
+
+            body.light-theme .product-price {
+                color: #d48a3c !important;
+                font-weight: bold;
+            }
+
+            body.light-theme .product-meta {
+                color: #6b5a7a !important;
+            }
+
+            /* Кнопки */
+            body.light-theme .btn-buy,
+            body.light-theme .btn-review,
+            body.light-theme .submit-btn {
+                background: linear-gradient(45deg, #2d1b4e, #5a3a7a) !important;
+                color: white !important;
+            }
+
+                body.light-theme .btn-buy:hover,
+                body.light-theme .btn-review:hover {
+                    box-shadow: 0 0 15px rgba(45, 27, 78, 0.4);
+                }
+
+            /* Фильтры */
+            body.light-theme .filter-btn {
+                background: rgba(45, 27, 78, 0.08);
+                border: 1px solid #2d1b4e;
+                color: #2d1b4e;
+            }
+
+                body.light-theme .filter-btn:hover,
+                body.light-theme .filter-btn.active {
+                    background: #2d1b4e;
+                    color: white;
+                }
+
+            /* Страницы "Про нас" и "Контакты" */
+            body.light-theme .about-section,
+            body.light-theme .contact-section,
+            body.light-theme .mission,
+            body.light-theme .contact-card {
+                background: rgba(255, 255, 255, 0.85) !important;
+                border: 1px solid #e0d4c8 !important;
+            }
+
+                body.light-theme .about-title,
+                body.light-theme .contact-title,
+                body.light-theme .feature-title,
+                body.light-theme .mission h3 {
+                    color: #2d1b4e !important;
+                }
+
+                body.light-theme .about-text,
+                body.light-theme .feature-desc,
+                body.light-theme .mission p,
+                body.light-theme .contact-card p {
+                    color: #4a3a6e !important;
+                }
+
+            /* Формы входа и регистрации */
+            body.light-theme .auth-form {
+                background: rgba(255, 255, 255, 0.9) !important;
+                border: 1px solid #e0d4c8 !important;
+            }
+
+                body.light-theme .auth-form h2 {
+                    color: #2d1b4e !important;
+                }
+
+                body.light-theme .auth-form label {
+                    color: #2d1b4e !important;
+                }
+
+                body.light-theme .auth-form input {
+                    background: #f9f9f9 !important;
+                    border: 1px solid #d4c8b8 !important;
+                    color: #2d1b4e !important;
+                }
+
+                    body.light-theme .auth-form input:focus {
+                        border-color: #d48a3c !important;
+                        box-shadow: 0 0 8px rgba(212, 138, 60, 0.3);
+                    }
+
+            body.light-theme .helptext {
+                color: #8a7a9a !important;
+            }
+
+            /* Карточка товара */
+            body.light-theme .product-detail-info h1 {
+                color: #2d1b4e !important;
+            }
+
+            body.light-theme .product-description {
+                color: #4a3a6e !important;
+            }
+
+            body.light-theme .product-characteristics {
+                background: rgba(45, 27, 78, 0.05) !important;
+                border: 1px solid #e0d4c8 !important;
+            }
+
+                body.light-theme .product-characteristics h3 {
+                    color: #2d1b4e !important;
+                }
+
+                body.light-theme .product-characteristics p {
+                    color: #4a3a6e !important;
+                }
+
+            /* Корзина */
+            body.light-theme .cart-table {
+                background: rgba(255, 255, 255, 0.9) !important;
+            }
+
+                body.light-theme .cart-table td {
+                    color: #4a3a6e !important;
+                    border-bottom-color: #e0d4c8 !important;
+                }
+
+                body.light-theme .cart-table th {
+                    background: rgba(45, 27, 78, 0.08) !important;
+                    color: #2d1b4e !important;
+                }
+
+            body.light-theme .cart-total {
+                background: rgba(255, 255, 255, 0.9) !important;
+            }
+
+                body.light-theme .cart-total p {
+                    color: #2d1b4e !important;
+                }
+
+            /* Отзывы */
+            body.light-theme .marquee-card {
+                background: rgba(255, 255, 255, 0.9) !important;
+                border: 1px solid #e0d4c8 !important;
+            }
+
+                body.light-theme .marquee-card .topic {
+                    color: #2d1b4e !important;
+                }
+
+                body.light-theme .marquee-card .review-text {
+                    color: #4a3a6e !important;
+                }
+
+                body.light-theme .marquee-card .author {
+                    color: #d48a3c !important;
+                }
+
+                body.light-theme .marquee-card .product-info {
+                    color: #8a7a9a !important;
+                    border-top-color: #e0d4c8 !important;
+                }
+
+            body.light-theme .rating-summary {
+                background: rgba(255, 255, 255, 0.85) !important;
+                border: 1px solid #e0d4c8 !important;
+            }
+
+            body.light-theme .average-rating {
+                background: linear-gradient(135deg, #2d1b4e, #5a3a7a);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+
+        /* Кнопка переключения темы */
+        .theme-switch {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffd700;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            color: #ffd700;
+        }
+
+            .theme-switch:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            }
+
+        body.light-theme .theme-switch {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: #2d1b4e !important;
+            color: #2d1b4e !important;
+        }
+
         /* Адаптация под мобильные */
         @media (max-width: 768px) {
             aside {
@@ -155,32 +415,38 @@
                 width: 40px;
                 height: 40px;
             }
+
+            .theme-switch {
+                padding: 6px 12px;
+                font-size: 10px;
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
-{% block extra_scripts %}{% endblock %}
 <body>
     <aside>
         <div class="logo-wrapper">
-            <!-- АНИМИРОВАННАЯ КАРТИНКА  -->
             <img src="{% static 'main/image/black_hole1.jpg' %}" class="animated-logo" alt="CosmoRing Logo" />
             <span class="logo-text">CosmoRing</span>
         </div>
 
         <h3>НАВИГАЦИЯ</h3>
         <ul>
-            <a href="{% url 'home'%}">
+            <a href="{% url 'home' %}">
             <li><i class="bi bi-house"></i> Главная</li></a>
-            <a href="{% url 'about'%}">
-            <li><i class="bi bi-info-circle-fill"></i> Про нас</li></a>
-            <a href="{% url 'contact'%}">
-            <li><i class="bi bi-send-fill"></i> Контакты</li></a>
-            <a href="{% url 'catalog'%}">
-            <li><i class="bi bi-send-fill"></i> Каталог</li></a>
-            <a href="{% url 'index'%}">
-            <li><i class="bi bi-send-fill"></i> индекс</li></a>
+            <a href="{% url 'catalog' %}">
+            <li><i class="bi bi-grid"></i> Каталог</li></a>
+            <a href="{% url 'cart' %}">
+            <li><i class="bi bi-cart"></i> Корзина</li></a>
             <a href="{% url 'reviews_list' %}">
             <li><i class="bi bi-star-fill"></i> Отзывы</li></a>
+            <a href="{% url 'about' %}">
+            <li><i class="bi bi-info-circle-fill"></i> Про нас</li></a>
+            <a href="{% url 'contact' %}">
+            <li><i class="bi bi-send-fill"></i> Контакты</li></a>
+
             {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">
             <li><i class="bi bi-box-arrow-right"></i> Выйти ({{ user.username }})</li></a>
@@ -197,5 +463,28 @@
         {% block content %}
         {% endblock %}
     </main>
+
+    <!-- Кнопка переключения темы -->
+    <button class="theme-switch" onclick="toggleTheme()">🌙/☀️ Сменить тему</button>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            if (document.body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                document.cookie = "theme=light; path=/";
+            } else {
+                localStorage.setItem('theme', 'dark');
+                document.cookie = "theme=dark; path=/";
+            }
+            window.location.reload();
+        }
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+        }
+    </script>
+
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>
