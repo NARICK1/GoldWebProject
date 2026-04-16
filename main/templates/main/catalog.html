@@ -113,6 +113,52 @@
             box-shadow: 0 0 15px rgba(255,215,0,0.5);
         }
 
+    .btn-cart {
+        background: linear-gradient(45deg, #ff8c00, #ff6600);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+    }
+
+        .btn-cart:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255,140,0,0.5);
+        }
+
+    .btn-favorite {
+        background: rgba(255,51,102,0.3);
+        border: 1px solid #ff3366;
+        color: #ff3366;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 50px;
+    }
+
+        .btn-favorite:hover {
+            background: rgba(255,51,102,0.6);
+            transform: scale(1.05);
+        }
+
+    .product-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+        .product-buttons a {
+            flex: 1;
+            text-decoration: none;
+        }
+
     .badge {
         position: absolute;
         top: 10px;
@@ -184,9 +230,18 @@
                 {% endif %}
             </div>
             <div class="product-price">{{ product.price|floatformat:0 }} ₽</div>
-            <a href="{% url 'product_detail' product.id %}">
-                <button class="btn-buy">Подробнее →</button>
-            </a>
+
+            <div class="product-buttons">
+                <a href="{% url 'product_detail' product.id %}">
+                    <button class="btn-buy">Подробнее</button>
+                </a>
+                <a href="{% url 'add_to_cart' product.id %}">
+                    <button class="btn-cart">🛒</button>
+                </a>
+                <a href="{% url 'add_to_favorites' product.id %}">
+                    <button class="btn-favorite">❤️</button>
+                </a>
+            </div>
         </div>
     </div>
     {% empty %}

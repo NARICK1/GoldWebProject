@@ -82,6 +82,34 @@
             box-shadow: 0 0 25px rgba(255,215,0,0.5);
         }
 
+    .btn-favorite-detail {
+        background: rgba(255,51,102,0.3);
+        border: 1px solid #ff3366;
+        color: #ff3366;
+        font-weight: bold;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .btn-favorite-detail:hover {
+            background: rgba(255,51,102,0.6);
+            transform: scale(1.05);
+        }
+
+    .product-buttons-detail {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+        .product-buttons-detail a {
+            text-decoration: none;
+        }
+
     .back-link {
         display: inline-block;
         margin-top: 20px;
@@ -132,7 +160,14 @@
         </div>
         {% endif %}
 
-        <button class="btn-add-to-cart" onclick="alert('Корзина скоро появится!')">🛒 Добавить в корзину</button>
+        <div class="product-buttons-detail">
+            <a href="{% url 'add_to_cart' product.id %}">
+                <button class="btn-add-to-cart">🛒 Добавить в корзину</button>
+            </a>
+            <a href="{% url 'add_to_favorites' product.id %}">
+                <button class="btn-favorite-detail">❤️ В избранное</button>
+            </a>
+        </div>
 
         <br>
         <a href="{% url 'catalog' %}" class="back-link">← Вернуться в каталог</a>

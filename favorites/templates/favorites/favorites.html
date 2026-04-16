@@ -1,0 +1,159 @@
+﻿{% extends 'main/layout.html' %}
+
+{% block title %}Избранное{% endblock %}
+
+{% block content %}
+<style>
+    .favorites-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .favorites-title {
+        color: #ffd700;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .favorites-empty {
+        text-align: center;
+        padding: 50px;
+        background: rgba(20,20,50,0.5);
+        border-radius: 20px;
+    }
+
+    .favorites-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .favorite-card {
+        background: rgba(20,20,50,0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,215,0,0.3);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .favorite-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+        }
+
+    .favorite-image {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+        background: #1a1a3a;
+        overflow: hidden;
+    }
+
+    .favorite-info {
+        padding: 20px;
+    }
+
+    .favorite-name {
+        color: #ffd700;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .favorite-price {
+        color: #ffaa44;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .btn-remove {
+        background: rgba(255,0,0,0.3);
+        border: 1px solid rgba(255,0,0,0.5);
+        color: #ff8888;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+        .btn-remove:hover {
+            background: rgba(255,0,0,0.5);
+            color: white;
+        }
+
+    .btn-to-cart {
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        border: none;
+        color: #000;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .heart-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        color: #ff3366;
+        background: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="favorites-container">
+    <h1 class="favorites-title">❤️ ИЗБРАННОЕ</h1>
+
+    {% if favorites %}
+    <div class="favorites-grid">
+        {% for item in favorites %}
+        <div class="favorite-card">
+            <div class="heart-icon">❤️</div>
+            <div class="favorite-image">
+                {% if item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                {% if item.product.category == 'ring' %}💍
+                {% elif item.product.category == 'earrings' %}✨
+                {% elif item.product.category == 'necklace' %}📿
+                {% else %}🔗{% endif %}
+                {% endif %}
+            </div>
+            <div class="favorite-info">
+                <div class="favorite-name">{{ item.product.name }}</div>
+                <div class="favorite-price">{{ item.product.price|floatformat:0 }} ₽</div>
+                <a href="{% url 'add_to_cart' item.product.id %}">
+                    <button class="btn-to-cart">🛒 В корзину</button>
+                </a>
+                <a href="{% url 'remove_from_favorites' item.product.id %}">
+                    <button class="btn-remove">🗑️ Удалить из избранного</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="favorites-empty">
+        <p>💔 В избранном пока пусто</p>
+        <p>Добавляйте товары, нажимая на сердечко ❤️</p>
+        <a href="{% url 'catalog' %}" class="btn-buy" style="display: inline-block; margin-top: 20px;">Перейти в каталог</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

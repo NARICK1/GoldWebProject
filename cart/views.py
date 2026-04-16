@@ -25,7 +25,7 @@ def add_to_cart(request, product_id):
         cart_item.quantity += 1
         cart_item.save()
     messages.success(request, f'Товар "{product.name}" добавлен в корзину')
-    return redirect('catalog')
+    return redirect(request.META.get('HTTP_REFERER', 'catalog'))
 
 @login_required
 def update_cart(request, item_id):
