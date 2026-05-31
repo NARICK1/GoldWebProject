@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/orders.css' %}">
+
+<div class="order-success">
+    <div class="success-icon">✅</div>
+    <h1>Спасибо за заказ!</h1>
+    <p>Ваш заказ <strong>#{{ order.id }}</strong> оформлен.</p>
+    <p>Мы свяжемся с вами по телефону или email для подтверждения.</p>
+
+    <div class="success-details">
+        <p><strong>Состав заказа:</strong></p>
+        {% for item in order.items.all %}
+        <p>{{ item.product_name }} × {{ item.quantity }} — {{ item.total|floatformat:0 }} ₽</p>
+        {% endfor %}
+        <p class="success-total">Итого: <span>{{ order.total_price|floatformat:0 }} ₽</span></p>
+        <p><strong>Адрес доставки:</strong> {{ order.city }}, {{ order.address }}</p>
+        <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+    </div>
+
+    <a href="{% url 'catalog' %}" class="btn-continue">← Продолжить покупки</a>
+</div>
+{% endblock %}

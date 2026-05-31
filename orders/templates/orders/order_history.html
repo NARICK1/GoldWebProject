@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}История заказов{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/orders.css' %}">
+
+<div class="order-history">
+    <h1 class="history-title">📋 ИСТОРИЯ ЗАКАЗОВ</h1>
+
+    {% if orders %}
+    {% for order in orders %}
+    <div class="order-card">
+        <div class="order-header">
+            <span class="order-id">Заказ #{{ order.id }}</span>
+            <span class="order-date">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+            <span class="order-status">{{ order.get_status_display }}</span>
+        </div>
+        <div class="order-body">
+            {% for item in order.items.all %}
+            <div class="order-item">
+                <span>{{ item.product_name }} × {{ item.quantity }}</span>
+                <span>{{ item.total|floatformat:0 }} ₽</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="order-footer">
+            <span class="order-total">Всего: <strong>{{ order.total_price|floatformat:0 }} ₽</strong></span>
+            <span class="order-address">{{ order.city }}, {{ order.address }}</span>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-history">
+        <p>📭 У вас пока нет заказов</p>
+        <a href="{% url 'catalog' %}" class="btn-continue">Перейти в каталог</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

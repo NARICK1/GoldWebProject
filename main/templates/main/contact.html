@@ -1,69 +1,10 @@
 ﻿{% extends 'main/layout.html' %}
+{% load static %}
 
 {% block title %}Контакты{% endblock %}
 
 {% block content %}
-<style>
-    .contact-section {
-        text-align: center;
-        padding: 40px 20px;
-    }
-
-    .contact-title {
-        color: #ffd700;
-        font-size: 48px;
-        margin-bottom: 30px;
-    }
-
-    .contact-grid {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        flex-wrap: wrap;
-        margin: 40px 0;
-    }
-
-    .contact-card {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,215,0,0.3);
-        border-radius: 20px;
-        padding: 30px;
-        width: 250px;
-        transition: all 0.3s;
-    }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffd700;
-        }
-
-    .contact-icon {
-        font-size: 40px;
-        margin-bottom: 15px;
-    }
-
-    .contact-card h3 {
-        color: #ffd700;
-        margin-bottom: 15px;
-    }
-
-    .contact-card p {
-        color: #ddd;
-        margin: 5px 0;
-    }
-
-    .map {
-        margin: 40px auto;
-        max-width: 800px;
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    .work-hours {
-        margin-top: 30px;
-        color: #888;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'main/css/about_contact.css' %}">
 
 <div class="contact-section">
     <h1 class="contact-title">🌟 Свяжитесь с нами 🌟</h1>

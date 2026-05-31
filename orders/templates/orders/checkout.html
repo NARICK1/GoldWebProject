@@ -1,0 +1,57 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/orders.css' %}">
+
+<div class="checkout-container">
+    <h1 class="checkout-title">📦 ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+
+    <div class="checkout-grid">
+        <div class="checkout-form">
+            <form method="post">
+                {% csrf_token %}
+
+                <label>ФИО *</label>
+                <input type="text" name="full_name" value="{{ request.user.get_full_name|default:request.user.username }}" required>
+
+                <label>Телефон *</label>
+                <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__">
+
+                <label>Email *</label>
+                <input type="email" name="email" value="{{ request.user.email }}" required>
+
+                <label>Город *</label>
+                <input type="text" name="city" required>
+
+                <label>Адрес доставки *</label>
+                <textarea name="address" rows="3" required></textarea>
+
+                <label>Почтовый индекс</label>
+                <input type="text" name="postal_code">
+
+                <label>Комментарий к заказу</label>
+                <textarea name="comment" rows="3"></textarea>
+
+                <button type="submit" class="btn-submit-order">✅ Подтвердить заказ</button>
+            </form>
+        </div>
+
+        <div class="checkout-summary">
+            <h3>🛒 Ваш заказ</h3>
+            {% for item in cart_items %}
+            <div class="summary-item">
+                <span class="summary-name">{{ item.product.name }} × {{ item.quantity }}</span>
+                <span class="summary-price">{{ item.total|floatformat:0 }} ₽</span>
+            </div>
+            {% endfor %}
+            <div class="summary-total">
+                <span>ИТОГО:</span>
+                <span>{{ total_price|floatformat:0 }} ₽</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
