@@ -11,9 +11,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'orders',
+    # Add your apps here to enable them
     'favorites',
-    'cart',
+    'cart', 
     'users',
     'reviews',
     'main',

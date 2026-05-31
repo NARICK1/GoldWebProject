@@ -42,6 +42,9 @@ def about(request):
 def contact(request):
     return render(request, 'main/contact.html')
 
+def index(request):
+    return render(request, 'main/index.html', {'title': 'Страница'})
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

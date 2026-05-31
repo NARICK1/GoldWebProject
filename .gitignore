@@ -1,9 +1,1 @@
-﻿venv/
-env/
-__pycache__/
-*.pyc
-*.pyo
-db.sqlite3
-media/
-.DS_Store
-*.db
+﻿
